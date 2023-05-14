@@ -67,7 +67,7 @@ async function processDiffs(
   const results: FileReviewResult[] = [];
 
   for (const { file, diff } of diffData) {
-    console.log(`Processing file: ${file}`);
+    // console.log(`Processing file: ${file}\n`);
     try {
       const review = await processDiff(diff, config);
       results.push({ file, review });
@@ -95,9 +95,10 @@ async function summarizeCRContent(
   results: FileReviewResult[],
   config: Config
 ): Promise<ReviewSumary> {
-  const header = '# Code Review Summary:';
+  const header = '### Code Review Summary:';
   const fileSummaries = results
-    .map(({ file, review }) => `### ${file}\n  \n${review}`)
+    // .map(({ file, review }) => `#### ${file}\n  \n${review}`)
+    .map(({ file, review }) => `#### ${file}\n  \n${review}\n`)
     .join('\n\n');
   const content = `${header}\n\n${fileSummaries}`;
 
@@ -114,8 +115,8 @@ export async function runCRGPT(
   config: Config
 ): Promise<ReviewSumary> {
   const { sourceBranch, targetBranch, file, prId } = options;
-  console.log(`Source Branch: ${sourceBranch}`);
-  console.log(`Target Branch: ${targetBranch}`);
+  console.log(`##### Source Branch: ${sourceBranch}\n`);
+  console.log(`##### Target Branch: ${targetBranch}\n`);
   if (!sourceBranch || !targetBranch) {
     throw new Error(
       'Error: Please provide sourceBranch, targetBranch as command line arguments.'

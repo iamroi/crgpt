@@ -109,7 +109,6 @@ function processDiffs(diffData, config, prId) {
                 case 1:
                     if (!(_i < diffData_1.length)) return [3 /*break*/, 7];
                     _a = diffData_1[_i], file = _a.file, diff = _a.diff;
-                    console.log("Processing file: ".concat(file));
                     _b.label = 2;
                 case 2:
                     _b.trys.push([2, 5, , 6]);
@@ -157,11 +156,12 @@ function summarizeCRContent(results, config) {
     return __awaiter(this, void 0, void 0, function () {
         var header, fileSummaries, content;
         return __generator(this, function (_a) {
-            header = '# Code Review Summary:';
+            header = '### Code Review Summary:';
             fileSummaries = results
+                // .map(({ file, review }) => `#### ${file}\n  \n${review}`)
                 .map(function (_a) {
                 var file = _a.file, review = _a.review;
-                return "### ".concat(file, "\n  \n").concat(review);
+                return "#### ".concat(file, "\n  \n").concat(review, "\n");
             })
                 .join('\n\n');
             content = "".concat(header, "\n\n").concat(fileSummaries);
@@ -181,8 +181,8 @@ function runCRGPT(options, config) {
             switch (_a.label) {
                 case 0:
                     sourceBranch = options.sourceBranch, targetBranch = options.targetBranch, file = options.file, prId = options.prId;
-                    console.log("Source Branch: ".concat(sourceBranch));
-                    console.log("Target Branch: ".concat(targetBranch));
+                    console.log("##### Source Branch: ".concat(sourceBranch, "\n"));
+                    console.log("##### Target Branch: ".concat(targetBranch, "\n"));
                     if (!sourceBranch || !targetBranch) {
                         throw new Error('Error: Please provide sourceBranch, targetBranch as command line arguments.');
                     }
