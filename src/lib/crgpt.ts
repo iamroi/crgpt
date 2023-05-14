@@ -11,7 +11,7 @@ import { postCommentToBitbucketPR } from './bitbucket';
 import { postCommentToGithubPR } from './github';
 import { writeCodeReviewToFile } from './markdown';
 import { printCodeReviewToConsole } from './stdout';
-import { generateDiffs } from './git';
+import { generateDiffs, generateContentDiff } from './git';
 
 
 async function postDiffToEndpoint(
@@ -113,17 +113,26 @@ export async function runCRGPT(
   options: runCRGPTOptions,
   config: Config
 ): Promise<ReviewSumary> {
-  const { sourceBranch, targetBranch, prId } = options;
+  const { sourceBranch, targetBranch, file, prId } = options;
   console.log(`run CRGPT`)
   console.log(`sourceBranch: ${sourceBranch}`);
   console.log(`targetBranch: ${targetBranch}`);
+  console.log(`file: ${file}`);
   if (!sourceBranch || !targetBranch) {
     throw new Error(
       'Error: Please provide sourceBranch, targetBranch as command line arguments.'
     );
   }
 
-  const diffData = await generateDiffs(sourceBranch, targetBranch, config);
+  let diffData: Diff[];
+
+  if (file) {
+    const diff = await generateContentDiff(sourceBranch, targetBranch, file, config);
+    diffData = [{ file, diff }];
+  } else {
+    diffData = await generateDiffs(sourceBranch, targetBranch, config);
+  }
+
   const results = await processDiffs(diffData, config, prId);
   const commentContent = await summarizeCRContent(results, config);
   return commentContent;

@@ -17,6 +17,7 @@ program
   )
   .option('-s, --source <source>', 'Source branch name')
   .option('-t, --target <target>', 'Target branch name')
+  .option('-f, --file <file>', 'Single file path')
   .option('-p, --prId [prId]', 'Pull request ID')
   .option('-at, --ai-token [accessToken]', 'Openai Access token')
   .option('-gt, --github-token [accessToken]', 'Github Access token')
@@ -28,6 +29,7 @@ program
       const {
         source: sourceBranch,
         target: targetBranch,
+        file: file,
         prId,
         config: configPath,
       } = options;
@@ -41,7 +43,7 @@ program
           if (!sourceBranch || !targetBranch) {
             throw new Error('Please provide source and target branch names');
           }
-          await runCRGPT({ sourceBranch, targetBranch, prId }, config);
+          await runCRGPT({ sourceBranch, targetBranch, file, prId }, config);
         case 'diff':
           throw new Error('Not implemented');
         case 'desc':

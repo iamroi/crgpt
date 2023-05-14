@@ -4,9 +4,11 @@ import { Config, Diff } from './types';
 export async function generateDiffs(
     sourceBranch: string,
     targetBranch: string,
+    // file: string,
     config: Config
 ): Promise<Diff[]> {
-    const command = `git diff ${sourceBranch}..${targetBranch} --name-only`;
+    const command = `/usr/bin/git diff ${sourceBranch}..${targetBranch} --name-only`;
+    // const command = `git diff ${sourceBranch}..${targetBranch} ${file ? file : '--name-only'}`;
     const ignoreFiles = config.review.ignoreFiles || [];
 
     const stdout = await execAsync(command);
@@ -26,14 +28,14 @@ export async function generateDiffs(
     return diffs;
 }
 
-async function generateContentDiff(
+export async function generateContentDiff(
     sourceBranch: string,
     targetBranch: string,
     file: string,
     config: Config
 ): Promise<string> {
     const diffArgs = config.code.gitDiffOArgs || "";
-    const command = `git diff ${diffArgs} ${targetBranch}..${sourceBranch} -- "${file}"`;
+    const command = `/usr/bin/git diff ${diffArgs} ${targetBranch}..${sourceBranch} -- "${file}"`;
     const stdout = await execAsync(command);
 
     return stdout;
@@ -64,5 +66,5 @@ function execAsync(command: string): Promise<string> {
 }
 
 export function getCurrentCommitId(): Promise<string> {
-    return execAsync("git rev-parse HEAD");
+    return execAsync("/usr/bin/git rev-parse HEAD");
 }

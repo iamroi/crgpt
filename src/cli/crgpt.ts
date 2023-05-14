@@ -18,6 +18,7 @@ program
   .option("-o, --output <output>", "output method")
   .option("-s, --source <source>", "Source branch name")
   .option("-t, --target <target>", "Target branch name")
+  .option('-f, --file <file>', 'Single file path')
   .option("-d, --diff-args [diffArgs]", "Git diff arguments")
   .option("-p, --prId [prId]", "Pull request ID")
   .option("-m, --model [model]", "Openai model", "gpt-3.5-turbo")
@@ -34,6 +35,7 @@ program
         prId,
         source: sourceBranch,
         target: targetBranch,
+        file: file,
         config: configPath,
       } = options;
 
@@ -46,7 +48,7 @@ program
           if (!sourceBranch || !targetBranch) {
             throw new Error("Please provide source and target branch names");
           }
-          await runCRGPTCLI({ sourceBranch, targetBranch, prId }, config);
+          await runCRGPTCLI({ sourceBranch, targetBranch, file, prId }, config);
           break;
         case "diff":
           throw new Error("Not implemented");

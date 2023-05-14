@@ -50,5 +50,6 @@ export type Config = {
   export type runCRGPTOptions = {
     sourceBranch: string;
     targetBranch: string;
+    file?: string;
     prId?: string;
   }

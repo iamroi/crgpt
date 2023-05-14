@@ -1,6 +1,7 @@
 export interface CrGPTCLIOptions {
     source?: string;
     target?: string;
+    file?: string;
     diffArgs?: string;
     prId?: string;
     init?: boolean;
