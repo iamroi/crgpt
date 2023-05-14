@@ -8,7 +8,6 @@ export async function generateDiffs(
     config: Config
 ): Promise<Diff[]> {
     const command = `/usr/bin/git diff ${sourceBranch}..${targetBranch} --name-only`;
-    // const command = `git diff ${sourceBranch}..${targetBranch} ${file ? file : '--name-only'}`;
     const ignoreFiles = config.review.ignoreFiles || [];
 
     const stdout = await execAsync(command);

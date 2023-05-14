@@ -181,10 +181,8 @@ function runCRGPT(options, config) {
             switch (_a.label) {
                 case 0:
                     sourceBranch = options.sourceBranch, targetBranch = options.targetBranch, file = options.file, prId = options.prId;
-                    console.log("run CRGPT");
-                    console.log("sourceBranch: ".concat(sourceBranch));
-                    console.log("targetBranch: ".concat(targetBranch));
-                    console.log("file: ".concat(file));
+                    console.log("Source Branch: ".concat(sourceBranch));
+                    console.log("Target Branch: ".concat(targetBranch));
                     if (!sourceBranch || !targetBranch) {
                         throw new Error('Error: Please provide sourceBranch, targetBranch as command line arguments.');
                     }

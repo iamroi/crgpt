@@ -114,10 +114,8 @@ export async function runCRGPT(
   config: Config
 ): Promise<ReviewSumary> {
   const { sourceBranch, targetBranch, file, prId } = options;
-  console.log(`run CRGPT`)
-  console.log(`sourceBranch: ${sourceBranch}`);
-  console.log(`targetBranch: ${targetBranch}`);
-  console.log(`file: ${file}`);
+  console.log(`Source Branch: ${sourceBranch}`);
+  console.log(`Target Branch: ${targetBranch}`);
   if (!sourceBranch || !targetBranch) {
     throw new Error(
       'Error: Please provide sourceBranch, targetBranch as command line arguments.'
