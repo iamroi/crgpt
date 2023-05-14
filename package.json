@@ -1,0 +1,44 @@
+{
+  "name": "crgpt",
+  "version": "1.1.0",
+  "description": "CLI tool that leverages ChatGPT API to perform code reviews and providing suggestions for improving code quality.",
+  "keywords": [
+    "crgpt",
+    "code-review-chatgpt",
+    "code-review-tool",
+    "code-review-gpt",
+    "code-review-bot",
+    "chatgpt-code-review"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "crgpt": "node ./dist/cli/crgpt.js",
+    "build:clean": "tsc --build --clean",
+    "build": "tsc"
+  },
+  "bin": {
+    "crgpt": "dist/cli/crgpt.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minhlucvan/crgpt.git"
+  },
+  "author": "minhlucvan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minhlucvan/crgpt/issues"
+  },
+  "homepage": "https://github.com/minhlucvan/crgpt#readme",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^18.15.11",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "@types/node-fetch": "2",
+    "commander": "^10.0.0",
+    "js-yaml": "^4.1.0",
+    "node-fetch": "2"
+  }
+}
